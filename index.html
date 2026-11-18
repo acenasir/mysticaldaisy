@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Goals</title>
+<style>
+:root{--bg:#faf7ef;--card:#fff;--ink:#22302a;--mute:#6b7a72;--line:#e4dfd0;--acc:#2f6b4f;--acc2:#e9b824;--soft:#eef4ef;--bad:#b4472f}
+@media(prefers-color-scheme:dark){:root{--bg:#141a17;--card:#1c2420;--ink:#e9efe9;--mute:#98a69e;--line:#2c3832;--acc:#7cc7a0;--acc2:#e9b824;--soft:#22302a;--bad:#e08a74}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2{font-family:Georgia,"Iowan Old Style",serif;font-weight:600;margin:0}
+h1{font-size:1.7rem}h2{font-size:1.25rem;margin-bottom:.6rem}
+main{max-width:760px;margin:0 auto;padding:16px 16px 80px}
+header{padding:20px 0 8px}
+.tag{color:var(--mute);margin:.2rem 0 0}
+nav{position:sticky;top:0;background:var(--bg);display:flex;gap:6px;overflow-x:auto;padding:10px 0;border-bottom:1px solid var(--line);z-index:5}
+nav a{color:var(--ink);text-decoration:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;white-space:nowrap;font-size:.9rem}
+section{margin-top:28px;scroll-margin-top:60px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.card.fin{opacity:.6}
+.top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.title{font-weight:600}
+.chip{font-size:.78rem;padding:2px 9px;border-radius:999px;background:var(--soft);color:var(--acc);white-space:nowrap}
+.chip.warn{background:#fbeed0;color:#7a5a00}.chip.late{background:#f7dcd5;color:#8d2f1b}
+.bar{height:8px;background:var(--soft);border-radius:8px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--acc);border-radius:8px}
+ul.steps{list-style:none;margin:6px 0 0;padding:0}
+ul.steps label{display:flex;gap:10px;padding:7px 0;align-items:flex-start;cursor:pointer}
+ul.steps input:checked+span{text-decoration:line-through;color:var(--mute)}
+input[type=checkbox]{width:20px;height:20px;accent-color:var(--acc);flex:none;margin-top:2px}
+input:not([type=checkbox]),textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 10px}
+textarea{min-height:76px;resize:vertical}
+label.f{display:block;font-size:.85rem;color:var(--mute);margin:8px 0}
+label.f>input,label.f>textarea{margin-top:4px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.row>input:not([type=checkbox]){flex:1;min-width:120px}
+button{font:inherit;padding:8px 14px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+button.primary{background:var(--acc);border-color:var(--acc);color:var(--bg);font-weight:600}
+button.danger{color:var(--bad)}button.ghost{border:none;padding:6px 10px;color:var(--mute)}
+.note{color:var(--mute);font-size:.88rem;margin:.4rem 0 0}
+.habit{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.habit:first-child{border-top:none}
+.habit .n{flex:1}.habit .c{font-variant-numeric:tabular-nums;color:var(--mute);min-width:44px;text-align:right}
+.habit.hit .c{color:var(--acc);font-weight:600}
+.habit button{width:40px;height:40px;padding:0;border-radius:50%;font-size:1.2rem}
+svg{width:100%;height:auto;display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--mute);margin-top:6px}
+.legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:5px;background:var(--acc)}
+.legend i.s{background:none;border-top:2px dashed var(--mute)}.legend i.d{width:8px;height:8px;border-radius:50%;background:var(--acc2)}
+ol.plans{padding-left:1.2rem;margin:0}ol.plans li{margin:.4rem 0}
+#gate{min-height:100vh;display:grid;place-items:center;padding:16px}
+#gate form{width:100%;max-width:340px;text-align:center}
+#gate .daisy{font-size:2.6rem}
+#err{color:var(--bad);min-height:1.4em;font-size:.9rem}
+#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:.9rem;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw}
+#toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div id="gate"><form id="gf">
+  <div class="daisy" aria-hidden="true">&#127804;</div>
+  <h1>Private page</h1>
+  <p class="tag">Enter the password to open it.</p>
+  <label class="f"><span hidden>Password</span><input id="pw" type="password" autocomplete="current-password" aria-label="Password" autofocus></label>
+  <label class="row" style="justify-content:center"><input id="rem" type="checkbox"> Remember on this device</label>
+  <div class="row" style="justify-content:center"><button class="primary">Unlock</button></div>
+  <p id="err" role="alert"></p>
+</form></div>
+<main id="app" hidden></main>
+<div id="toast" role="status"></div>
+<script src="seed.js"></script>
+<script>
+const LS='gt_state_v1',LP='gt_pw';
+let key=null,seed=null,S=null,ui={editD:null,editH:false,editP:false,editL:false,r:{}},saveQ=Promise.resolve();
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const b64d=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const b64e=b=>{let s='';new Uint8Array(b).forEach(x=>s+=String.fromCharCode(x));return btoa(s)};
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const parse=s=>{const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const today=()=>iso(new Date());
+const addDays=(s,n)=>{const d=parse(s);d.setDate(d.getDate()+n);return iso(d)};
+const diff=(a,b)=>Math.round((parse(b)-parse(a))/864e5);
+const weekStart=s=>addDays(s,-((parse(s).getDay()+6)%7));
+const fmt=(s,o)=>parse(s).toLocaleDateString('en-US',o||{weekday:'short',month:'short',day:'numeric'});
+const uid=()=>Math.random().toString(36).slice(2,9);
+const lines=v=>v.split('\n').map(x=>x.trim()).filter(Boolean);
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2600)}
+
+async function deriveKey(pw){
+  const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt:b64d(SEED.salt),iterations:SEED.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+}
+async function dec(o){return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:b64d(o.iv)},key,b64d(o.ct))))}
+async function enc(obj){const iv=crypto.getRandomValues(new Uint8Array(12));
+  return{iv:b64e(iv),ct:b64e(await crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(JSON.stringify(obj))))}}
+function save(){saveQ=saveQ.then(async()=>{try{localStorage.setItem(LS,JSON.stringify(await enc(S)))}catch(e){toast('Could not save on this device. Use Export to keep a copy.')}})}
+function fresh(){const s=JSON.parse(JSON.stringify(seed));s.log={};s.checkins={};s.reviews=[];return s}
+
+async function unlock(pw,remember){
+  try{key=await deriveKey(pw);seed=await dec(SEED)}catch(e){key=null;return false}
+  S=null;
+  try{const raw=localStorage.getItem(LS);if(raw)S=await dec(JSON.parse(raw))}catch(e){}
+  if(!S)S=fresh();
+  try{remember?localStorage.setItem(LP,pw):0}catch(e){}
+  $('#gate').hidden=true;$('#app').hidden=false;render();return true;
+}
+$('#gf').addEventListener('submit',async e=>{e.preventDefault();$('#err').textContent='';
+  if(!(await unlock($('#pw').value.trim(),$('#rem').checked)))$('#err').textContent='That password did not work.'});
+(async()=>{try{const p=localStorage.getItem(LP);if(p&&!(await unlock(p,false)))localStorage.removeItem(LP)}catch(e){}})();
+
+const ci=()=>S.checkins[today()]||(S.checkins[today()]={});
+const weekCount=(id,ws)=>{let n=0;for(let k=0;k<7;k++)n+=(S.log[addDays(ws,k)]||{})[id]||0;return n};
+const active=()=>S.habits.filter(h=>h.active);
+function weekScore(ws){const a=active(),t=a.reduce((x,h)=>x+h.target,0);if(!t)return 0;
+  return Math.round(a.reduce((x,h)=>x+Math.min(weekCount(h.id,ws),h.target),0)/t*100)}
+function dueChip(d){if(!d.due)return'';if(d.steps.length&&d.steps.every(s=>s.done))return'<span class="chip">done</span>';
+  const n=diff(today(),d.due),t=n<0?-n+'d overdue':n===0?'due today':n===1?'due tomorrow':'in '+n+' days';
+  return`<span class="chip ${n<0?'late':n<=2?'warn':''}">${fmt(d.due)} &middot; ${t}${d.tbd?' &middot; confirm date':''}</span>`}
+
+function delivCard(d,i){
+  const done=d.steps.filter(s=>s.done).length,tot=d.steps.length,fin=tot&&done===tot;
+  if(ui.editD===d.id)return`<article class="card">
+    <label class="f">Goal<input data-f="d.title" data-i="${i}" value="${esc(d.title)}"></label>
+    <label class="f">Due<input type="date" data-f="d.due" data-i="${i}" value="${esc(d.due)}"></label>
+    <label class="row"><input type="checkbox" data-f="d.tbd" data-i="${i}" ${d.tbd?'checked':''}> Date not confirmed yet</label>
+    <label class="f">Note<input data-f="d.note" data-i="${i}" value="${esc(d.note)}"></label>
+    <div class="f">Steps</div>
+    ${d.steps.map((s,j)=>`<div class="row"><input data-f="s.t" data-i="${i}" data-j="${j}" value="${esc(s.t)}" aria-label="Step ${j+1}"><button class="ghost" data-act="del-step" data-i="${i}" data-j="${j}" aria-label="Remove step">&#10005;</button></div>`).join('')}
+    <div class="row"><button data-act="add-step" data-i="${i}">+ Step</button><button class="danger" data-act="del-deliv" data-i="${i}">Delete goal</button><button class="primary" data-act="done-edit">Done</button></div></article>`;
+  return`<article class="card ${fin?'fin':''}">
+    <div class="top"><div class="title">${esc(d.title)}</div>${dueChip(d)}</div>
+    <div class="bar" role="img" aria-label="${done} of ${tot} steps done"><i style="width:${tot?done/tot*100:0}%"></i></div>
+    <ul class="steps">${d.steps.map((s,j)=>`<li><label><input type="checkbox" data-act="step" data-i="${i}" data-j="${j}" ${s.done?'checked':''}><span>${esc(s.t)}</span></label></li>`).join('')}</ul>
+    ${d.note?`<p class="note">${esc(d.note)}</p>`:''}
+    <div class="row"><button class="ghost" data-act="edit-deliv" data-id="${d.id}">Edit</button></div></article>`}
+
+function burnup(){
+  const steps=S.deliverables.flatMap(d=>d.steps),scope=steps.length||1,t=today(),start=S.start;
+  let end=S.deliverables.map(d=>d.due).filter(Boolean).concat(t).sort().pop();
+  if(diff(start,end)>150)end=addDays(start,150);if(diff(start,end)<7)end=addDays(start,7);
+  const n=diff(start,end),W=640,H=220,l=30,r=12,tp=14,b=28,x=k=>l+k/n*(W-l-r),y=v=>H-b-v/scope*(H-tp-b);
+  const tk=Math.max(0,Math.min(n,diff(start,t))),pts=[];
+  for(let k=0;k<=tk;k++){const day=addDays(start,k);pts.push(x(k).toFixed(1)+','+y(steps.filter(s=>s.done&&s.done<=day).length).toFixed(1))}
+  const dues=S.deliverables.filter(d=>d.due&&d.due>=start&&d.due<=end).map(d=>`<circle cx="${x(diff(start,d.due))}" cy="${H-b}" r="4.5" fill="var(--acc2)"><title>${esc(d.title)} - ${fmt(d.due)}</title></circle>`).join('');
+  const now=steps.filter(s=>s.done).length;
+  return`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Burn-up chart: ${now} of ${steps.length} steps done">
+    <line x1="${l}" y1="${H-b}" x2="${W-r}" y2="${H-b}" stroke="var(--line)"/><line x1="${l}" y1="${tp}" x2="${l}" y2="${H-b}" stroke="var(--line)"/>
+    <line x1="${l}" y1="${y(scope)}" x2="${W-r}" y2="${y(scope)}" stroke="var(--mute)" stroke-dasharray="5 5"/>
+    <line x1="${x(tk)}" y1="${tp}" x2="${x(tk)}" y2="${H-b}" stroke="var(--line)"/>
+    <polygon points="${x(0)},${H-b} ${pts.join(' ')} ${x(tk)},${H-b}" fill="var(--acc)" opacity=".15"/>
+    <polyline points="${pts.join(' ')}" fill="none" stroke="var(--acc)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+    ${dues}
+    <g font-size="12" fill="var(--mute)"><text x="${l-6}" y="${y(scope)+4}" text-anchor="end">${steps.length}</text><text x="${l-6}" y="${H-b+4}" text-anchor="end">0</text>
+    <text x="${l}" y="${H-8}">${fmt(start,{month:'short',day:'numeric'})}</text><text x="${W-r}" y="${H-8}" text-anchor="end">${fmt(end,{month:'short',day:'numeric'})}</text>
+    <text x="${Math.min(Math.max(x(tk),l+70),W-r-70)}" y="${H-8}" text-anchor="middle" fill="var(--ink)">today</text></g></svg>
+    <div class="legend"><span><i></i>Steps done (${now})</span><span><i class="s"></i>All steps (${steps.length})</span><span><i class="d"></i>Due dates</span></div>`}
+
+function consistency(){
+  const cur=weekStart(today()),first=weekStart(S.start),W=640,H=190,l=10,b=26,tp=22,bw=(W-2*l)/6;let o='';
+  for(let k=0;k<6;k++){const ws=addDays(cur,(k-5)*7),X=l+k*bw+bw*.18,w=bw*.64,has=ws>=first,v=has?weekScore(ws):0,h=v/100*(H-tp-b);
+    o+=`<rect x="${X}" y="${tp}" width="${w}" height="${H-tp-b}" rx="6" fill="var(--soft)"/>`+
+      (has?`<rect x="${X}" y="${H-b-h}" width="${w}" height="${h}" rx="6" fill="var(--acc)" opacity="${k===5?1:.6}"/><text x="${X+w/2}" y="${Math.max(H-b-h-5,14)}" text-anchor="middle" font-size="13" fill="var(--ink)">${v}%</text>`:'')+
+      `<text x="${X+w/2}" y="${H-8}" text-anchor="middle" font-size="12" fill="var(--mute)">${k===5?'this week':fmt(ws,{month:'short',day:'numeric'})}</text>`}
+  return`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Weekly consistency, this week ${weekScore(cur)} percent">${o}</svg>`}
+
+function render(){
+  const t=today(),ws=weekStart(t),c=S.checkins[t]||{};
+  const open=S.deliverables.map((d,i)=>[d,i]).sort((a,b)=>{const fa=a[0].steps.length&&a[0].steps.every(s=>s.done),fb=b[0].steps.length&&b[0].steps.every(s=>s.done);return fa-fb||(a[0].due||'9').localeCompare(b[0].due||'9')});
+  const next=open.find(([d])=>d.steps.some(s=>!s.done));
+  const nextStep=next?next[0].steps.find(s=>!s.done).t:'';
+  const days=[0,1,2,3,4,5,6].filter(k=>S.checkins[addDays(ws,k)]&&S.checkins[addDays(ws,k)].min).length;
+  $('#app').innerHTML=`
+  <header><h1>${esc(S.name)}</h1><p class="tag">Own your time. &middot; ${fmt(t,{weekday:'long',month:'long',day:'numeric'})}</p></header>
+  <nav><a href="#today">Today</a><a href="#now">Now</a><a href="#weekly">Weekly</a><a href="#plans">Plans</a><a href="#later">Later</a><a href="#review">Review</a><a href="#settings">Settings</a></nav>
+
+  <section id="today"><h2>Today</h2><div class="card">
+    <label class="f">The one thing that matters most today<input data-f="c.top" value="${esc(c.top)}" placeholder="${esc(nextStep)}"></label>
+    <label class="row"><input type="checkbox" data-act="min" ${c.min?'checked':''}> <span>Minimum day done</span></label>
+    <p class="note">${S.minDay.map(esc).join(' &middot; ')}</p>
+    <p class="note">Minimum days this week: ${days} of 7</p>
+    <div style="margin-top:10px">${active().map(h=>{const n=weekCount(h.id,ws);return`<div class="habit ${n>=h.target?'hit':''}"><span class="n">${esc(h.title)}</span><span class="c">${n}/${h.target}</span><button data-act="dec" data-id="${h.id}" aria-label="Remove one ${esc(h.title)}">&minus;</button><button data-act="inc" data-id="${h.id}" aria-label="Add one ${esc(h.title)}">+</button></div>`}).join('')}</div>
+    <label class="f">Note to self<input data-f="c.note" value="${esc(c.note)}" placeholder="One line is enough"></label>
+  </div></section>
+
+  <section id="now"><h2>Now: through mid-December</h2>
+    <div class="card">${burnup()}</div>
+    ${open.map(([d,i])=>delivCard(d,i)).join('')}
+    <button data-act="add-deliv">+ Add a goal</button></section>
+
+  <section id="weekly"><h2>Weekly inputs</h2>
+    <div class="card">${consistency()}<p class="note">Share of this week's targets met. A missed day does not reset anything.</p></div>
+    <div class="card">${ui.editH?
+      S.habits.map((h,i)=>`<div class="row"><input data-f="h.title" data-i="${i}" value="${esc(h.title)}" aria-label="Input name"><input type="number" min="1" max="14" style="flex:0 0 70px;min-width:70px" data-f="h.target" data-i="${i}" value="${h.target}" aria-label="Times per week"><label class="row" style="margin:0"><input type="checkbox" data-f="h.active" data-i="${i}" ${h.active?'checked':''}> active</label><button class="ghost" data-act="del-habit" data-i="${i}" aria-label="Remove">&#10005;</button></div>`).join('')+
+      `<div class="row"><button data-act="add-habit">+ Input</button><button class="primary" data-act="done-edit">Done</button></div><p class="note">Five active at most. Number is times per week.</p>`:
+      `<p class="note" style="margin-top:0">Active (${active().length} of 5): ${active().map(h=>esc(h.title)+' &times;'+h.target).join(', ')||'none'}</p>
+       <p class="note">Parked: ${S.habits.filter(h=>!h.active).map(h=>esc(h.title)).join(', ')||'none'}</p>
+       <div class="row"><button class="ghost" data-act="edit-habits">Edit or swap</button></div>`}</div></section>
+
+  <section id="plans"><h2>If-then plans</h2><div class="card">${ui.editP?
+    `<label class="f">One plan per line<textarea data-f="plans" rows="6">${esc(S.plans.join('\n'))}</textarea></label>
+     <label class="f">Minimum day, one item per line<textarea data-f="minDay" rows="4">${esc(S.minDay.join('\n'))}</textarea></label>
+     <div class="row"><button class="primary" data-act="done-edit">Done</button></div>`:
+    `<ol class="plans">${S.plans.map(p=>`<li>${esc(p)}</li>`).join('')}</ol><div class="row"><button class="ghost" data-act="edit-plans">Edit</button></div>`}</div></section>
+
+  <section id="later"><h2>Later</h2>${ui.editL?
+    `<div class="card">${S.later.map((x,i)=>`<label class="f">Goal<input data-f="l.title" data-i="${i}" value="${esc(x.title)}"></label><label class="f">Note<input data-f="l.note" data-i="${i}" value="${esc(x.note)}"></label><div class="row"><button class="ghost danger" data-act="del-later" data-i="${i}">Remove</button></div>`).join('')}
+     <div class="row"><button data-act="add-later">+ Add</button><button class="primary" data-act="done-edit">Done</button></div></div>`:
+    S.later.map(x=>`<div class="card"><div class="title">${esc(x.title)}</div><p class="note">${esc(x.note)}</p></div>`).join('')+`<button class="ghost" data-act="edit-later">Edit</button>`}</section>
+
+  <section id="review"><h2>Weekly review</h2><div class="card">
+    <label class="f">What worked this week<textarea data-f="r.worked">${esc(ui.r.worked)}</textarea></label>
+    <label class="f">What got in the way<textarea data-f="r.blocked">${esc(ui.r.blocked)}</textarea></label>
+    <label class="f">One change for next week<textarea data-f="r.change">${esc(ui.r.change)}</textarea></label>
+    <div class="row"><button class="primary" data-act="save-review">Save review</button></div></div>
+    ${S.reviews.slice(-5).reverse().map(r=>`<div class="card"><div class="title">Week of ${fmt(r.week,{month:'short',day:'numeric'})} &middot; ${r.score}%</div><p class="note"><b>Worked:</b> ${esc(r.worked)}</p><p class="note"><b>In the way:</b> ${esc(r.blocked)}</p><p class="note"><b>Change:</b> ${esc(r.change)}</p></div>`).join('')}</section>
+
+  <section id="settings"><h2>Settings</h2><div class="card">
+    <label class="f">Name on this page<input data-f="name" value="${esc(S.name)}"></label>
+    <div class="row"><button data-act="export">Export backup</button><button data-act="import">Import backup</button><button data-act="lock">Lock</button><button class="danger" data-act="reset">Reset everything</button></div>
+    <input id="imp" type="file" accept="application/json,.json" hidden>
+    <p class="note">Your progress is saved only in this browser on this device. Export a backup to move it to another device or keep a copy.</p></div></section>`;
+}
+
+function field(el){
+  const f=el.dataset.f,i=+el.dataset.i,j=+el.dataset.j,v=el.type==='checkbox'?el.checked:el.value;
+  if(f==='d.title')S.deliverables[i].title=v;else if(f==='d.due')S.deliverables[i].due=v;else if(f==='d.tbd')S.deliverables[i].tbd=v;
+  else if(f==='d.note')S.deliverables[i].note=v;else if(f==='s.t')S.deliverables[i].steps[j].t=v;
+  else if(f==='h.title')S.habits[i].title=v;else if(f==='h.target')S.habits[i].target=Math.max(1,Math.min(14,Math.round(+v)||1));
+  else if(f==='h.active'){if(v&&active().length>=5){el.checked=false;return toast('Five active at most. Park one first.')}S.habits[i].active=v}
+  else if(f==='plans')S.plans=lines(v);else if(f==='minDay')S.minDay=lines(v);
+  else if(f==='l.title')S.later[i].title=v;else if(f==='l.note')S.later[i].note=v;
+  else if(f==='c.top')ci().top=v;else if(f==='c.note')ci().note=v;else if(f==='name')S.name=v;
+  else if(f.startsWith('r.')){ui.r[f.slice(2)]=v;return}
+  save();
+}
+document.addEventListener('change',e=>{const el=e.target;if(!S)return;
+  if(el.id==='imp')return importFile(el.files[0]);
+  if(el.dataset.f)return field(el);
+  if(el.dataset.act==='step'){S.deliverables[+el.dataset.i].steps[+el.dataset.j].done=el.checked?today():null;save();render()}
+  if(el.dataset.act==='min'){ci().min=el.checked;save();render()}
+});
+document.addEventListener('click',e=>{const el=e.target.closest('button[data-act]');if(!el||!S)return;
+  const a=el.dataset.act,i=+el.dataset.i,j=+el.dataset.j,t=today();
+  if(a==='inc'||a==='dec'){const L=S.log[t]||(S.log[t]={}),id=el.dataset.id;
+    if(a==='inc')L[id]=(L[id]||0)+1;else if(L[id]>0)L[id]--;else return toast('Nothing logged today to remove.')}
+  else if(a==='edit-deliv')ui.editD=el.dataset.id;
+  else if(a==='done-edit')ui.editD=null,ui.editH=ui.editP=ui.editL=false;
+  else if(a==='add-step')S.deliverables[i].steps.push({t:'New step',done:null});
+  else if(a==='del-step')S.deliverables[i].steps.splice(j,1);
+  else if(a==='del-deliv'){if(!confirm('Delete this goal?'))return;S.deliverables.splice(i,1);ui.editD=null}
+  else if(a==='add-deliv'){const d={id:uid(),title:'New goal',due:addDays(t,7),tbd:false,note:'',steps:[{t:'First step',done:null}]};S.deliverables.push(d);ui.editD=d.id}
+  else if(a==='edit-habits')ui.editH=true;
+  else if(a==='add-habit')S.habits.push({id:uid(),title:'New input',target:1,active:active().length<5});
+  else if(a==='del-habit')S.habits.splice(i,1);
+  else if(a==='edit-plans')ui.editP=true;else if(a==='edit-later')ui.editL=true;
+  else if(a==='add-later')S.later.push({title:'New goal',note:''});else if(a==='del-later')S.later.splice(i,1);
+  else if(a==='save-review'){if(!(ui.r.worked||ui.r.blocked||ui.r.change))return toast('Write at least one line first.');
+    const ws=weekStart(t);S.reviews.push({week:ws,score:weekScore(ws),worked:ui.r.worked||'',blocked:ui.r.blocked||'',change:ui.r.change||''});ui.r={};toast('Review saved.')}
+  else if(a==='export'){const u=URL.createObjectURL(new Blob([JSON.stringify(S,null,1)],{type:'application/json'})),l=document.createElement('a');
+    l.href=u;l.download='goals-backup-'+t+'.json';l.click();setTimeout(()=>URL.revokeObjectURL(u),1e3);return}
+  else if(a==='import')return $('#imp').click();
+  else if(a==='lock'){try{localStorage.removeItem(LP)}catch(x){}return location.reload()}
+  else if(a==='reset'){if(!confirm('Erase all progress on this device and go back to the starting goals?'))return;S=fresh()}
+  save();render();
+});
+async function importFile(f){if(!f)return;try{const o=JSON.parse(await f.text());
+  if(!Array.isArray(o.deliverables)||!Array.isArray(o.habits))throw 0;
+  S=Object.assign(fresh(),o);save();render();toast('Backup imported.')}catch(e){toast('That file is not a goals backup.')}}
+</script>
+</body>
+</html>
