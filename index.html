@@ -6,62 +6,104 @@
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>Goals</title>
 <style>
-:root{--bg:#faf7ef;--card:#fff;--ink:#22302a;--mute:#6b7a72;--line:#e4dfd0;--acc:#2f6b4f;--acc2:#e9b824;--soft:#eef4ef;--bad:#b4472f}
-@media(prefers-color-scheme:dark){:root{--bg:#141a17;--card:#1c2420;--ink:#e9efe9;--mute:#98a69e;--line:#2c3832;--acc:#7cc7a0;--acc2:#e9b824;--soft:#22302a;--bad:#e08a74}}
+:root{--bg:#fbf7ee;--bg2:#f1eaff;--bg3:#ffeef1;--card:rgba(255,255,255,.8);--field:rgba(255,255,255,.7);--ink:#23302b;--mute:#66736c;--line:rgba(60,70,60,.13);--acc:#2f6b4f;--acc2:#f2bd2c;--pink:#f08aa6;--soft:#e7f1ea;--bad:#b4472f;--btn:#fff;--shadow:0 12px 32px -14px rgba(40,60,50,.28)}
+@media(prefers-color-scheme:dark){:root{--bg:#111715;--bg2:#19172c;--bg3:#221922;--card:rgba(32,40,37,.8);--field:rgba(0,0,0,.28);--ink:#ecf2ee;--mute:#9aa8a1;--line:rgba(255,255,255,.11);--acc:#7fd0a6;--soft:#22302a;--bad:#e79a86;--btn:#0f1f18;--shadow:0 12px 32px -14px rgba(0,0,0,.7)}.sky i{opacity:.16!important}}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;background:linear-gradient(160deg,var(--bg),var(--bg2) 55%,var(--bg3)) fixed}
+.sky{position:fixed;inset:0;overflow:hidden;z-index:-1;pointer-events:none}
+.sky i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.sky i:nth-child(1){width:340px;height:340px;background:#ffe08a;top:-80px;left:-60px}
+.sky i:nth-child(2){width:300px;height:300px;background:#c9b8ff;top:35%;right:-90px;animation-duration:28s}
+.sky i:nth-child(3){width:320px;height:320px;background:#ffc2d1;bottom:-100px;left:20%;animation-duration:34s}
+@keyframes drift{to{transform:translate(40px,60px) scale(1.15)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
+@keyframes pop{50%{transform:scale(1.3)}}
+@keyframes fill{from{width:0}}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes grow{from{transform:scaleY(0)}}
+@keyframes ring{from{stroke-dashoffset:214}}
+@keyframes cf{to{transform:translate(var(--dx),var(--dy)) rotate(260deg);opacity:0}}
 h1,h2{font-family:Georgia,"Iowan Old Style",serif;font-weight:600;margin:0}
-h1{font-size:1.7rem}h2{font-size:1.25rem;margin-bottom:.6rem}
-main{max-width:760px;margin:0 auto;padding:16px 16px 80px}
-header{padding:20px 0 8px}
+h1{font-size:1.75rem;line-height:1.2}h2{font-size:1.3rem;margin-bottom:.7rem}
+main{max-width:760px;margin:0 auto;padding:16px 16px 90px}
+header{padding:18px 0 4px}
 .tag{color:var(--mute);margin:.2rem 0 0}
-nav{position:sticky;top:0;background:var(--bg);display:flex;gap:6px;overflow-x:auto;padding:10px 0;border-bottom:1px solid var(--line);z-index:5}
-nav a{color:var(--ink);text-decoration:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;white-space:nowrap;font-size:.9rem}
-section{margin-top:28px;scroll-margin-top:60px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.hero{display:flex;gap:16px;align-items:center;margin-bottom:16px}
+.ring{position:relative;width:92px;height:92px;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8}
+.ring .t{stroke:var(--soft)}
+.ring .v{stroke:var(--acc);stroke-linecap:round;stroke-dasharray:213.6;stroke-dashoffset:var(--o)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:1.15rem}
+.dz{width:64px;height:64px;display:block}
+.quote{position:relative;overflow:hidden;padding:20px 84px 18px 20px;background:linear-gradient(135deg,rgba(242,189,44,.26),rgba(240,138,166,.2)),var(--card)}
+.quote .dz{position:absolute;right:-12px;top:-14px;width:88px;height:88px;animation:spin 40s linear infinite}
+.quote .lbl{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.quote q{display:block;font:italic 1.35rem/1.35 Georgia,"Iowan Old Style",serif;margin:.3rem 0 .2rem;quotes:"\201C" "\201D"}
+nav{position:sticky;top:8px;display:flex;gap:4px;overflow-x:auto;padding:6px;margin-top:6px;border:1px solid var(--line);border-radius:999px;background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:var(--shadow);z-index:5;scrollbar-width:none}
+nav a{color:var(--ink);text-decoration:none;padding:6px 13px;border-radius:999px;white-space:nowrap;font-size:.9rem;transition:background .2s,color .2s}
+nav a:hover,nav a:focus-visible{background:var(--acc);color:var(--btn)}
+section{margin-top:30px;scroll-margin-top:70px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-2px)}
 .card.fin{opacity:.6}
+.intro>*{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.intro>:nth-child(2){animation-delay:.08s}.intro>:nth-child(3){animation-delay:.16s}.intro>:nth-child(4){animation-delay:.24s}.intro>:nth-child(5){animation-delay:.32s}.intro>:nth-child(6){animation-delay:.4s}.intro>:nth-child(n+7){animation-delay:.48s}
+.intro .bar i{animation:fill .9s .4s both}
+.intro .draw{stroke-dasharray:1;animation:draw 1.5s .5s ease-out both}
+.intro .grow{transform-box:fill-box;transform-origin:bottom;animation:grow .9s .4s cubic-bezier(.2,.7,.2,1) both}
+.intro .ring .v{animation:ring 1.3s .3s ease-out both}
 .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
 .title{font-weight:600}
-.chip{font-size:.78rem;padding:2px 9px;border-radius:999px;background:var(--soft);color:var(--acc);white-space:nowrap}
+.chip{font-size:.78rem;padding:3px 10px;border-radius:999px;background:var(--soft);color:var(--acc);white-space:nowrap}
 .chip.warn{background:#fbeed0;color:#7a5a00}.chip.late{background:#f7dcd5;color:#8d2f1b}
-.bar{height:8px;background:var(--soft);border-radius:8px;overflow:hidden;margin:8px 0}
-.bar i{display:block;height:100%;background:var(--acc);border-radius:8px}
+.bar{height:9px;background:var(--soft);border-radius:9px;overflow:hidden;margin:9px 0}
+.bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--acc),var(--acc2))}
 ul.steps{list-style:none;margin:6px 0 0;padding:0}
 ul.steps label{display:flex;gap:10px;padding:7px 0;align-items:flex-start;cursor:pointer}
 ul.steps input:checked+span{text-decoration:line-through;color:var(--mute)}
-input[type=checkbox]{width:20px;height:20px;accent-color:var(--acc);flex:none;margin-top:2px}
-input:not([type=checkbox]),textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 10px}
+input[type=checkbox]{width:21px;height:21px;accent-color:var(--acc);flex:none;margin-top:2px;cursor:pointer}
+input[type=checkbox]:checked{animation:pop .3s}
+input:not([type=checkbox]),textarea{width:100%;font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:10px 12px;transition:border-color .2s,box-shadow .2s}
+input:focus,textarea:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(47,107,79,.18)}
 textarea{min-height:76px;resize:vertical}
 label.f{display:block;font-size:.85rem;color:var(--mute);margin:8px 0}
 label.f>input,label.f>textarea{margin-top:4px}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
 .row>input:not([type=checkbox]){flex:1;min-width:120px}
-button{font:inherit;padding:8px 14px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
-button.primary{background:var(--acc);border-color:var(--acc);color:var(--bg);font-weight:600}
-button.danger{color:var(--bad)}button.ghost{border:none;padding:6px 10px;color:var(--mute)}
+button{font:inherit;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:transform .15s,box-shadow .2s}
+button:hover{transform:translateY(-1px);box-shadow:var(--shadow)}button:active{transform:scale(.95)}
+button.primary{background:var(--acc);border-color:var(--acc);color:var(--btn);font-weight:600}
+button.danger{color:var(--bad)}button.ghost{border:none;background:none;box-shadow:none;padding:6px 10px;color:var(--mute)}
 .note{color:var(--mute);font-size:.88rem;margin:.4rem 0 0}
 .habit{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
 .habit:first-child{border-top:none}
 .habit .n{flex:1}.habit .c{font-variant-numeric:tabular-nums;color:var(--mute);min-width:44px;text-align:right}
-.habit.hit .c{color:var(--acc);font-weight:600}
-.habit button{width:40px;height:40px;padding:0;border-radius:50%;font-size:1.2rem}
+.habit.hit .c{color:var(--acc);font-weight:700}
+.habit button{width:42px;height:42px;padding:0;font-size:1.25rem}
+.habit button[data-act=inc]{background:var(--acc);border-color:var(--acc);color:var(--btn)}
 svg{width:100%;height:auto;display:block}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--mute);margin-top:6px}
 .legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:5px;background:var(--acc)}
 .legend i.s{background:none;border-top:2px dashed var(--mute)}.legend i.d{width:8px;height:8px;border-radius:50%;background:var(--acc2)}
-ol.plans{padding-left:1.2rem;margin:0}ol.plans li{margin:.4rem 0}
+ol.plans{padding-left:1.2rem;margin:0}ol.plans li{margin:.45rem 0}
 #gate{min-height:100vh;display:grid;place-items:center;padding:16px}
-#gate form{width:100%;max-width:340px;text-align:center}
-#gate .daisy{font-size:2.6rem}
+#gate form{width:100%;max-width:360px;text-align:center;padding:30px 24px;border-radius:26px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+#gate .dz{width:96px;height:96px;margin:0 auto 10px;animation:spin 30s linear infinite}
 #err{color:var(--bad);min-height:1.4em;font-size:.9rem}
-#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:.9rem;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw}
-#toast.on{opacity:1}
+#toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,12px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:999px;font-size:.92rem;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;max-width:90vw;z-index:60}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.cf{position:fixed;width:8px;height:8px;border-radius:2px;pointer-events:none;z-index:50;animation:cf .9s ease-out forwards}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
+<div class="sky" aria-hidden="true"><i></i><i></i><i></i></div>
 <div id="gate"><form id="gf">
-  <div class="daisy" aria-hidden="true">&#127804;</div>
+  <div class="daisy" aria-hidden="true"></div>
   <h1>Private page</h1>
   <p class="tag">Enter the password to open it.</p>
   <label class="f"><span hidden>Password</span><input id="pw" type="password" autocomplete="current-password" aria-label="Password" autofocus></label>
@@ -88,6 +130,16 @@ const weekStart=s=>addDays(s,-((parse(s).getDay()+6)%7));
 const fmt=(s,o)=>parse(s).toLocaleDateString('en-US',o||{weekday:'short',month:'short',day:'numeric'});
 const uid=()=>Math.random().toString(36).slice(2,9);
 const lines=v=>v.split('\n').map(x=>x.trim()).filter(Boolean);
+const DAISY='<svg class="dz" viewBox="-50 -50 100 100" aria-hidden="true">'+Array.from({length:12},(_,k)=>'<ellipse rx="9" ry="22" cy="-26" fill="#fff" stroke="#e6d9bd" transform="rotate('+k*30+')"/>').join('')+'<circle r="13" fill="#f2bd2c"/><circle r="13" fill="none" stroke="#d99f12" stroke-width="2"/></svg>';
+document.querySelectorAll('.daisy').forEach(e=>e.innerHTML=DAISY);
+const QUOTES=["You don't need a perfect day. You need a started one.","Twenty-five minutes now beats three hours later.","Own your time, or something else will.","A late start is still a start.","Small and done is bigger than grand and planned.","The work you avoid is rarely as heavy as the avoiding.","Put the phone down once. That is the whole trick, repeated.","Future you is watching. Give her something to thank you for.","Progress is quiet. Keep going anyway.","You have done hard things on worse days.","Begin before you feel ready. Ready shows up later.","One page. One problem. One step. Then the next.","Consistency is just starting again, many times.","You are not behind. You are here, and here is where it starts.","Spilled a little? Don't tip the glass.","Move your body, then move your work.","Discipline is a kindness to tomorrow.","Do it for the scientist you are becoming.","The goal isn't to never slip. It is to recover faster.","Hard now, proud later.","You earned your place. Now grow into it.","An hour of focus is worth a day of worry.","Let the deadline be a date, not a fear.","Curiosity got you here. Let it pull you forward.","Rest is part of the plan, not a break from it.","Show up small today. Small still counts.","What you practise, you become.","Close the app. Open the book.","The best time was this morning. The next best is now.","Learn one thing well today.","You said you would do it. Be someone you can count on."];
+const CHEERS=['Nice. One step closer.','Done is done. Well played.','That is momentum.','Checked off. Keep it rolling.','Look at you go.'];
+const cheer=()=>CHEERS[Math.floor(Math.random()*CHEERS.length)];
+function burst(el){if(!el||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches))return;
+  const b=el.getBoundingClientRect(),x=b.left+b.width/2,y=b.top+b.height/2,c=['#f2bd2c','#2f6b4f','#f08aa6','#b9a7f0','#fff'];
+  for(let k=0;k<24;k++){const p=document.createElement('i'),a=Math.random()*6.28,r=40+Math.random()*80;p.className='cf';
+    p.style.cssText='left:'+x+'px;top:'+y+'px;background:'+c[k%5]+';--dx:'+Math.cos(a)*r+'px;--dy:'+(Math.sin(a)*r-30)+'px';
+    document.body.appendChild(p);setTimeout(()=>p.remove(),900)}}
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2600)}
 
 async function deriveKey(pw){
@@ -106,7 +158,7 @@ async function unlock(pw,remember){
   try{const raw=localStorage.getItem(LS);if(raw)S=await dec(JSON.parse(raw))}catch(e){}
   if(!S)S=fresh();
   try{remember?localStorage.setItem(LP,pw):0}catch(e){}
-  $('#gate').hidden=true;$('#app').hidden=false;render();return true;
+  $('#gate').hidden=true;const A=$('#app');A.hidden=false;A.classList.add('intro');setTimeout(()=>A.classList.remove('intro'),2400);render();return true;
 }
 $('#gf').addEventListener('submit',async e=>{e.preventDefault();$('#err').textContent='';
   if(!(await unlock($('#pw').value.trim(),$('#rem').checked)))$('#err').textContent='That password did not work.'});
@@ -152,7 +204,7 @@ function burnup(){
     <line x1="${l}" y1="${y(scope)}" x2="${W-r}" y2="${y(scope)}" stroke="var(--mute)" stroke-dasharray="5 5"/>
     <line x1="${x(tk)}" y1="${tp}" x2="${x(tk)}" y2="${H-b}" stroke="var(--line)"/>
     <polygon points="${x(0)},${H-b} ${pts.join(' ')} ${x(tk)},${H-b}" fill="var(--acc)" opacity=".15"/>
-    <polyline points="${pts.join(' ')}" fill="none" stroke="var(--acc)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline class="draw" pathLength="1" points="${pts.join(' ')}" fill="none" stroke="var(--acc)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
     ${dues}
     <g font-size="12" fill="var(--mute)"><text x="${l-6}" y="${y(scope)+4}" text-anchor="end">${steps.length}</text><text x="${l-6}" y="${H-b+4}" text-anchor="end">0</text>
     <text x="${l}" y="${H-8}">${fmt(start,{month:'short',day:'numeric'})}</text><text x="${W-r}" y="${H-8}" text-anchor="end">${fmt(end,{month:'short',day:'numeric'})}</text>
@@ -163,7 +215,7 @@ function consistency(){
   const cur=weekStart(today()),first=weekStart(S.start),W=640,H=190,l=10,b=26,tp=22,bw=(W-2*l)/6;let o='';
   for(let k=0;k<6;k++){const ws=addDays(cur,(k-5)*7),X=l+k*bw+bw*.18,w=bw*.64,has=ws>=first,v=has?weekScore(ws):0,h=v/100*(H-tp-b);
     o+=`<rect x="${X}" y="${tp}" width="${w}" height="${H-tp-b}" rx="6" fill="var(--soft)"/>`+
-      (has?`<rect x="${X}" y="${H-b-h}" width="${w}" height="${h}" rx="6" fill="var(--acc)" opacity="${k===5?1:.6}"/><text x="${X+w/2}" y="${Math.max(H-b-h-5,14)}" text-anchor="middle" font-size="13" fill="var(--ink)">${v}%</text>`:'')+
+      (has?`<rect class="grow" x="${X}" y="${H-b-h}" width="${w}" height="${h}" rx="6" fill="var(--acc)" opacity="${k===5?1:.6}"/><text x="${X+w/2}" y="${Math.max(H-b-h-5,14)}" text-anchor="middle" font-size="13" fill="var(--ink)">${v}%</text>`:'')+
       `<text x="${X+w/2}" y="${H-8}" text-anchor="middle" font-size="12" fill="var(--mute)">${k===5?'this week':fmt(ws,{month:'short',day:'numeric'})}</text>`}
   return`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Weekly consistency, this week ${weekScore(cur)} percent">${o}</svg>`}
 
@@ -173,8 +225,14 @@ function render(){
   const next=open.find(([d])=>d.steps.some(s=>!s.done));
   const nextStep=next?next[0].steps.find(s=>!s.done).t:'';
   const days=[0,1,2,3,4,5,6].filter(k=>S.checkins[addDays(ws,k)]&&S.checkins[addDays(ws,k)].min).length;
+  const all=S.deliverables.flatMap(d=>d.steps),nd=all.filter(s=>s.done).length,pct=all.length?Math.round(nd/all.length*100):0,off=(213.6*(1-pct/100)).toFixed(1);
+  const hr=new Date().getHours(),greet=hr<12?'Good morning':hr<18?'Good afternoon':'Good evening';
+  const msg=c.min?'Minimum day done. Anything more is a bonus.':all.some(s=>s.done===t)?'You moved something forward today.':'Start with 25 minutes. That is the whole ask.';
+  const quote=QUOTES[((diff('2026-01-01',t)%QUOTES.length)+QUOTES.length)%QUOTES.length];
   $('#app').innerHTML=`
-  <header><h1>${esc(S.name)}</h1><p class="tag">Own your time. &middot; ${fmt(t,{weekday:'long',month:'long',day:'numeric'})}</p></header>
+  <header><div class="hero"><div class="ring" role="img" aria-label="${pct} percent of all steps done"><svg viewBox="0 0 80 80"><circle class="t" cx="40" cy="40" r="34"/><circle class="v" cx="40" cy="40" r="34" style="--o:${off}"/></svg><b>${pct}%</b></div>
+    <div><p class="tag">${fmt(t,{weekday:'long',month:'long',day:'numeric'})}</p><h1>${greet}, ${esc(S.name)}</h1><p class="tag">${msg}</p></div></div>
+    <div class="card quote">${DAISY}<span class="lbl">Today's thought</span><q>${esc(quote)}</q>${next?`<p class="note">Next up: <b>${esc(nextStep)}</b> &middot; ${esc(next[0].title)}</p>`:''}</div></header>
   <nav><a href="#today">Today</a><a href="#now">Now</a><a href="#weekly">Weekly</a><a href="#plans">Plans</a><a href="#later">Later</a><a href="#review">Review</a><a href="#settings">Settings</a></nav>
 
   <section id="today"><h2>Today</h2><div class="card">
@@ -240,13 +298,13 @@ function field(el){
 document.addEventListener('change',e=>{const el=e.target;if(!S)return;
   if(el.id==='imp')return importFile(el.files[0]);
   if(el.dataset.f)return field(el);
-  if(el.dataset.act==='step'){S.deliverables[+el.dataset.i].steps[+el.dataset.j].done=el.checked?today():null;save();render()}
-  if(el.dataset.act==='min'){ci().min=el.checked;save();render()}
+  if(el.dataset.act==='step'){S.deliverables[+el.dataset.i].steps[+el.dataset.j].done=el.checked?today():null;if(el.checked){burst(el);toast(cheer())}save();render()}
+  if(el.dataset.act==='min'){ci().min=el.checked;if(el.checked){burst(el);toast('Minimum day done. That counts.')}save();render()}
 });
 document.addEventListener('click',e=>{const el=e.target.closest('button[data-act]');if(!el||!S)return;
   const a=el.dataset.act,i=+el.dataset.i,j=+el.dataset.j,t=today();
   if(a==='inc'||a==='dec'){const L=S.log[t]||(S.log[t]={}),id=el.dataset.id;
-    if(a==='inc')L[id]=(L[id]||0)+1;else if(L[id]>0)L[id]--;else return toast('Nothing logged today to remove.')}
+    if(a==='inc'){L[id]=(L[id]||0)+1;const h=S.habits.find(h=>h.id===id);if(h&&weekCount(id,weekStart(t))===h.target){burst(el);toast('Weekly target hit: '+h.title)}}else if(L[id]>0)L[id]--;else return toast('Nothing logged today to remove.')}
   else if(a==='edit-deliv')ui.editD=el.dataset.id;
   else if(a==='done-edit')ui.editD=null,ui.editH=ui.editP=ui.editL=false;
   else if(a==='add-step')S.deliverables[i].steps.push({t:'New step',done:null});
